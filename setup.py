@@ -6,14 +6,11 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
-    name='django-grappelli',
-    version='2.7.1',
-    description='A jazzy skin for the Django Admin-Interface.',
+    name='django-coffelli',
+    version='0.0.1',
+    description='CoffeeStudio Django admin interface.',
     long_description=read('README.rst'),
-    url='http://django-grappelli.readthedocs.org',
-    download_url='',
-    author='Patrick Kranzlmueller, Axel Swoboda (vonautomatisch)',
-    author_email='office@vonautomatisch.at',
+    author='CoffeeStudio LLC',
     license='BSD',
     packages=find_packages(),
     include_package_data=True,

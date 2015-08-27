@@ -2,6 +2,6 @@ include AUTHORS
 include README.rst
 include LICENSE
 recursive-include docs *
-recursive-include grappelli/static *
-recursive-include grappelli/templates *
-recursive-include grappelli/dashboard/templates *
+recursive-include coffelli/static *
+recursive-include coffelli/templates *
+recursive-include coffelli/dashboard/templates *
