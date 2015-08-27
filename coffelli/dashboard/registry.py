@@ -8,7 +8,7 @@ class Registry(object):
     registry = {}
 
     def register(cls, klass, app_name):
-        from grappelli.dashboard.dashboards import Dashboard
+        from coffelli.dashboard.dashboards import Dashboard
         if not issubclass(klass, Dashboard):
             raise ValueError('%s is not an instance of Dashboard' % klass)
         if app_name in cls.registry:
@@ -35,8 +35,8 @@ def autodiscover(blacklist=[]):
     from importlib import import_module
     from django.conf import settings
 
-    blacklist.append('grappelli')
-    blacklist.append('grappelli.dashboard')
+    blacklist.append('coffelli')
+    blacklist.append('coffelli.dashboard')
 
     for app in settings.INSTALLED_APPS:
         # skip blacklisted apps

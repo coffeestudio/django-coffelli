@@ -20,7 +20,7 @@ except ImportError:
     from django.contrib.auth.models import User
 
 # GRAPPELLI IMPORTS
-from grappelli.settings import SWITCH_USER_ORIGINAL, SWITCH_USER_TARGET
+from coffelli.settings import SWITCH_USER_ORIGINAL, SWITCH_USER_TARGET
 
 
 @staff_member_required

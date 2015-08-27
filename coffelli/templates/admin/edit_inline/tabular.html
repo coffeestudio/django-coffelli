@@ -175,8 +175,8 @@
             prefix: "{{ inline_admin_formset.formset.prefix }}",
             onBeforeAdded: function(inline) {},
             onAfterAdded: function(form) {
-                grappelli.reinitDateTimeFields(form);
-                grappelli.updateSelectFilter(form);
+                coffelli.reinitDateTimeFields(form);
+                coffelli.updateSelectFilter(form);
                 $.each(related_lookup_fields_fk, function() {
                     form.find("input[name^='" + prefix + "'][name$='-" + this + "']")
                     .grp_related_fk({lookup_url:"{% url 'grp_related_lookup' %}"});

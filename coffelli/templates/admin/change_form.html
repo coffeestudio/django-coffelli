@@ -16,7 +16,7 @@
     <script type="text/javascript" charset="utf-8">
         (function($) {
             $(document).ready(function() {
-                grappelli.initDateAndTimePicker();
+                coffelli.initDateAndTimePicker();
                 $("#grp-content-container .grp-group").grp_collapsible_group();
                 $("#grp-content-container .grp-collapse").grp_collapsible({
                     on_init: function(elem, options) {
@@ -95,9 +95,9 @@
                     }
                 });
                 // HACK: remove input types
-                var clean_input_types = "{% grappelli_clean_input_types %}";
+                var clean_input_types = "{% coffelli_clean_input_types %}";
                 if (clean_input_types == "True") {
-                    grappelli.cleanInputTypes();
+                    coffelli.cleanInputTypes();
                 };
             });
         })(grp.jQuery);

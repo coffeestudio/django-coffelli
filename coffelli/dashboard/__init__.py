@@ -1,4 +1,4 @@
-from grappelli.dashboard.dashboards import *
-from grappelli.dashboard.registry import *
+from coffelli.dashboard.dashboards import *
+from coffelli.dashboard.registry import *
 
-default_app_config = "grappelli.dashboard.apps.DashboardConfig"
+default_app_config = "coffelli.dashboard.apps.DashboardConfig"

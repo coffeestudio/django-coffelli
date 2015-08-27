@@ -1,3 +1,3 @@
 // dropped
-// not used in grappelli
+// not used in coffelli
 // kept this file to prevent 404

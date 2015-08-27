@@ -5,6 +5,6 @@ from django.apps import AppConfig
 
 
 class DashboardConfig(AppConfig):
-    name = "grappelli.dashboard"
-    label = "grappelli.dashboard"
+    name = "coffelli.dashboard"
+    label = "coffelli.dashboard"
     verbose_name = "Grappelli Dashboard"

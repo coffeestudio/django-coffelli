@@ -20,8 +20,8 @@ from django.template.loader import get_template
 from django.template.context import Context
 from django.utils.translation import ugettext as _
 
-# grappelli imports
-from grappelli.settings import ADMIN_TITLE, ADMIN_URL, SWITCH_USER, SWITCH_USER_ORIGINAL, SWITCH_USER_TARGET, CLEAN_INPUT_TYPES
+# coffelli imports
+from coffelli.settings import ADMIN_TITLE, ADMIN_URL, SWITCH_USER, SWITCH_USER_ORIGINAL, SWITCH_USER_TARGET, CLEAN_INPUT_TYPES
 
 register = template.Library()
 
@@ -96,12 +96,12 @@ def get_datetime_format():
 
 
 @register.simple_tag
-def grappelli_admin_title():
+def coffelli_admin_title():
     return ADMIN_TITLE
 
 
 @register.simple_tag
-def grappelli_clean_input_types():
+def coffelli_clean_input_types():
     return CLEAN_INPUT_TYPES
 
 
@@ -224,7 +224,7 @@ def admin_list_filter(cl, spec):
 @register.simple_tag(takes_context=True)
 def switch_user_dropdown(context):
     if SWITCH_USER:
-        tpl = get_template("admin/includes_grappelli/switch_user_dropdown.html")
+        tpl = get_template("admin/includes_coffelli/switch_user_dropdown.html")
         request = context["request"]
         session_user = request.session.get("original_user", {"id": request.user.id, "username": request.user.get_username()})
         try:

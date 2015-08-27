@@ -16,13 +16,13 @@ except ImportError:
     from django.utils import simplejson as json
 
 # GRAPPELLI IMPORTS
-from grappelli.tests.models import Category, Entry
+from coffelli.tests.models import Category, Entry
 
 
 @override_settings(GRAPPELLI_AUTOCOMPLETE_LIMIT=10)
 @override_settings(GRAPPELLI_AUTOCOMPLETE_SEARCH_FIELDS={})
 class RelatedTests(TestCase):
-    urls = "grappelli.tests.urls"
+    urls = "coffelli.tests.urls"
 
     def setUp(self):
         """
@@ -73,40 +73,40 @@ class RelatedTests(TestCase):
         self.assertEqual(response.content, json.dumps([{"value": None, "label": ""}]))
 
         # ok
-        response = self.client.get("%s?object_id=1&app_label=%s&model_name=%s" % (reverse("grp_related_lookup"), "grappelli", "category"))
+        response = self.client.get("%s?object_id=1&app_label=%s&model_name=%s" % (reverse("grp_related_lookup"), "coffelli", "category"))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, json.dumps([{"value": "1", "label": "Category No 0 (1)"}]))
 
         # wrong object_id
-        response = self.client.get("%s?object_id=10000&app_label=%s&model_name=%s" % (reverse("grp_related_lookup"), "grappelli", "category"))
+        response = self.client.get("%s?object_id=10000&app_label=%s&model_name=%s" % (reverse("grp_related_lookup"), "coffelli", "category"))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, json.dumps([{"value": "10000", "label": "?"}]))
 
         # filtered queryset (single filter) fails
-        response = self.client.get("%s?object_id=1&app_label=%s&model_name=%s&query_string=id__gte=99" % (reverse("grp_related_lookup"), "grappelli", "category"))
+        response = self.client.get("%s?object_id=1&app_label=%s&model_name=%s&query_string=id__gte=99" % (reverse("grp_related_lookup"), "coffelli", "category"))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, json.dumps([{"value": "1", "label": "?"}]))
 
         # filtered queryset (single filter) works
-        response = self.client.get("%s?object_id=100&app_label=%s&model_name=%s&query_string=id__gte=99" % (reverse("grp_related_lookup"), "grappelli", "category"))
+        response = self.client.get("%s?object_id=100&app_label=%s&model_name=%s&query_string=id__gte=99" % (reverse("grp_related_lookup"), "coffelli", "category"))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, json.dumps([{"value": "100", "label": "Category No 99 (100)"}]))
 
         # filtered queryset (multiple filters) fails
-        response = self.client.get("%s?object_id=1&app_label=%s&model_name=%s&query_string=name__icontains=99:id__gte=99" % (reverse("grp_related_lookup"), "grappelli", "category"))
+        response = self.client.get("%s?object_id=1&app_label=%s&model_name=%s&query_string=name__icontains=99:id__gte=99" % (reverse("grp_related_lookup"), "coffelli", "category"))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, json.dumps([{"value": "1", "label": "?"}]))
 
         # filtered queryset (multiple filters) works
-        response = self.client.get("%s?object_id=100&app_label=%s&model_name=%s&query_string=name__icontains=99:id__gte=99" % (reverse("grp_related_lookup"), "grappelli", "category"))
+        response = self.client.get("%s?object_id=100&app_label=%s&model_name=%s&query_string=name__icontains=99:id__gte=99" % (reverse("grp_related_lookup"), "coffelli", "category"))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, json.dumps([{"value": "100", "label": "Category No 99 (100)"}]))
 
         # custom queryset (Superuser)
-        response = self.client.get("%s?object_id=1&app_label=%s&model_name=%s" % (reverse("grp_related_lookup"), "grappelli", "entry"))
+        response = self.client.get("%s?object_id=1&app_label=%s&model_name=%s" % (reverse("grp_related_lookup"), "coffelli", "entry"))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, json.dumps([{"value": "1", "label": "Entry Superuser"}]))
-        response = self.client.get("%s?object_id=2&app_label=%s&model_name=%s" % (reverse("grp_related_lookup"), "grappelli", "entry"))
+        response = self.client.get("%s?object_id=2&app_label=%s&model_name=%s" % (reverse("grp_related_lookup"), "coffelli", "entry"))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, json.dumps([{"value": "2", "label": "Entry Editor"}]))
 
@@ -114,7 +114,7 @@ class RelatedTests(TestCase):
         # FIXME: this should fail, because the custom admin queryset
         # limits the entry to the logged in superuser
         self.client.login(username="Editor001", password="editor001")
-        response = self.client.get("%s?object_id=1&app_label=%s&model_name=%s" % (reverse("grp_related_lookup"), "grappelli", "entry"))
+        response = self.client.get("%s?object_id=1&app_label=%s&model_name=%s" % (reverse("grp_related_lookup"), "coffelli", "entry"))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, json.dumps([{"value": "1", "label": "Entry Superuser"}]))
 
@@ -140,42 +140,42 @@ class RelatedTests(TestCase):
         self.assertEqual(response.content, json.dumps([{"value": None, "label": ""}]))
 
         # ok (single)
-        response = self.client.get("%s?object_id=1&app_label=%s&model_name=%s" % (reverse("grp_m2m_lookup"), "grappelli", "category"))
+        response = self.client.get("%s?object_id=1&app_label=%s&model_name=%s" % (reverse("grp_m2m_lookup"), "coffelli", "category"))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, json.dumps([{"value": "1", "label": "Category No 0 (1)"}]))
 
         # wrong object_id (single)
-        response = self.client.get("%s?object_id=10000&app_label=%s&model_name=%s" % (reverse("grp_m2m_lookup"), "grappelli", "category"))
+        response = self.client.get("%s?object_id=10000&app_label=%s&model_name=%s" % (reverse("grp_m2m_lookup"), "coffelli", "category"))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, json.dumps([{"value": "10000", "label": "?"}]))
 
         # ok (multiple)
-        response = self.client.get("%s?object_id=1,2,3&app_label=%s&model_name=%s" % (reverse("grp_m2m_lookup"), "grappelli", "category"))
+        response = self.client.get("%s?object_id=1,2,3&app_label=%s&model_name=%s" % (reverse("grp_m2m_lookup"), "coffelli", "category"))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, json.dumps([{"value": "1", "label": "Category No 0 (1)"}, {"value": "2", "label": "Category No 1 (2)"}, {"value": "3", "label": "Category No 2 (3)"}]))
 
         # wrong object_id (multiple)
-        response = self.client.get("%s?object_id=1,10000,3&app_label=%s&model_name=%s" % (reverse("grp_m2m_lookup"), "grappelli", "category"))
+        response = self.client.get("%s?object_id=1,10000,3&app_label=%s&model_name=%s" % (reverse("grp_m2m_lookup"), "coffelli", "category"))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, json.dumps([{"value": "1", "label": "Category No 0 (1)"}, {"value": "10000", "label": "?"}, {"value": "3", "label": "Category No 2 (3)"}]))
 
         # filtered queryset (single filter) fails
-        response = self.client.get("%s?object_id=1,2,3&app_label=%s&model_name=%s&query_string=id__gte=99" % (reverse("grp_m2m_lookup"), "grappelli", "category"))
+        response = self.client.get("%s?object_id=1,2,3&app_label=%s&model_name=%s&query_string=id__gte=99" % (reverse("grp_m2m_lookup"), "coffelli", "category"))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, json.dumps([{"value": "1", "label": "?"}, {"value": "2", "label": "?"}, {"value": "3", "label": "?"}]))
 
         # filtered queryset (single filter) works
-        response = self.client.get("%s?object_id=1,2,3&app_label=%s&model_name=%s&query_string=id__lte=3" % (reverse("grp_m2m_lookup"), "grappelli", "category"))
+        response = self.client.get("%s?object_id=1,2,3&app_label=%s&model_name=%s&query_string=id__lte=3" % (reverse("grp_m2m_lookup"), "coffelli", "category"))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, json.dumps([{"value": "1", "label": "Category No 0 (1)"}, {"value": "2", "label": "Category No 1 (2)"}, {"value": "3", "label": "Category No 2 (3)"}]))
 
         # filtered queryset (multiple filters) fails
-        response = self.client.get("%s?object_id=1,2,3&app_label=%s&model_name=%s&query_string=name__icontains=99:id__gte=99" % (reverse("grp_m2m_lookup"), "grappelli", "category"))
+        response = self.client.get("%s?object_id=1,2,3&app_label=%s&model_name=%s&query_string=name__icontains=99:id__gte=99" % (reverse("grp_m2m_lookup"), "coffelli", "category"))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, json.dumps([{"value": "1", "label": "?"}, {"value": "2", "label": "?"}, {"value": "3", "label": "?"}]))
 
         # filtered queryset (multiple filters) works
-        response = self.client.get("%s?object_id=1,2,3&app_label=%s&model_name=%s&query_string=name__icontains=Category:id__lte=3" % (reverse("grp_m2m_lookup"), "grappelli", "category"))
+        response = self.client.get("%s?object_id=1,2,3&app_label=%s&model_name=%s&query_string=name__icontains=Category:id__lte=3" % (reverse("grp_m2m_lookup"), "coffelli", "category"))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, json.dumps([{"value": "1", "label": "Category No 0 (1)"}, {"value": "2", "label": "Category No 1 (2)"}, {"value": "3", "label": "Category No 2 (3)"}]))
 
@@ -193,21 +193,21 @@ class RelatedTests(TestCase):
         self.assertEqual(response.content, json.dumps([{"value": None, "label": ""}]))
 
         # term not found
-        response = self.client.get("%s?term=XXXXXXXXXX&app_label=%s&model_name=%s" % (reverse("grp_autocomplete_lookup"), "grappelli", "category"))
+        response = self.client.get("%s?term=XXXXXXXXXX&app_label=%s&model_name=%s" % (reverse("grp_autocomplete_lookup"), "coffelli", "category"))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, json.dumps([{"value": None, "label": "0 results"}]))
 
         # ok (99 finds the id and the title, therefore 2 results)
-        response = self.client.get("%s?term=Category No 99&app_label=%s&model_name=%s" % (reverse("grp_autocomplete_lookup"), "grappelli", "category"))
+        response = self.client.get("%s?term=Category No 99&app_label=%s&model_name=%s" % (reverse("grp_autocomplete_lookup"), "coffelli", "category"))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, json.dumps([{"value": 99, "label": "Category No 98 (99)"}, {"value": 100, "label": "Category No 99 (100)"}]))
 
         # filtered queryset (single filter)
-        response = self.client.get("%s?term=Category&app_label=%s&model_name=%s&query_string=id__gte=99" % (reverse("grp_autocomplete_lookup"), "grappelli", "category"))
+        response = self.client.get("%s?term=Category&app_label=%s&model_name=%s&query_string=id__gte=99" % (reverse("grp_autocomplete_lookup"), "coffelli", "category"))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, json.dumps([{"value": 99, "label": "Category No 98 (99)"}, {"value": 100, "label": "Category No 99 (100)"}]))
 
         # filtered queryset (multiple filters)
-        response = self.client.get("%s?term=Category&app_label=%s&model_name=%s&query_string=name__icontains=99:id__gte=99" % (reverse("grp_autocomplete_lookup"), "grappelli", "category"))
+        response = self.client.get("%s?term=Category&app_label=%s&model_name=%s&query_string=name__icontains=99:id__gte=99" % (reverse("grp_autocomplete_lookup"), "coffelli", "category"))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, json.dumps([{"value": 100, "label": "Category No 99 (100)"}]))

@@ -10,7 +10,7 @@ class Category(models.Model):
     name = models.CharField("Title", max_length=50)
 
     class Meta:
-        app_label = "grappelli"
+        app_label = "coffelli"
         verbose_name = "Category"
         verbose_name_plural = "Categories"
 
@@ -35,7 +35,7 @@ class Entry(models.Model):
     updatedate = models.DateField("Date (Update)", auto_now=True)
 
     class Meta:
-        app_label = "grappelli"
+        app_label = "coffelli"
         verbose_name = "Entry"
         verbose_name_plural = "Entries"
         ordering = ["-date", "title"]

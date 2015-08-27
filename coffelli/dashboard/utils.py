@@ -42,7 +42,7 @@ def get_index_dashboard(context):
     return _get_dashboard_cls(getattr(
         settings,
         'GRAPPELLI_INDEX_DASHBOARD',
-        'grappelli.dashboard.dashboards.DefaultIndexDashboard'
+        'coffelli.dashboard.dashboards.DefaultIndexDashboard'
     ), context)()
 
 
@@ -50,7 +50,7 @@ def get_admin_site(context=None, request=None):
     dashboard_cls = getattr(
         settings,
         'GRAPPELLI_INDEX_DASHBOARD',
-        'grappelli.dashboard.dashboards.DefaultIndexDashboard'
+        'coffelli.dashboard.dashboards.DefaultIndexDashboard'
     )
 
     if isinstance(dashboard_cls, dict):

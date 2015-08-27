@@ -1,12 +1,12 @@
 {
-  "name": "Grappelli",
-  "version": "2.7.1",
-  "description": "A jazzy skin for the Django admin interface",
-  "author": "Patrick Kranzlmueller, Axel Swoboda",
+  "name": "Coffelli",
+  "version": "0.0.1",
+  "description": "CoffeeStudio Django admin interface",
+  "author": "CoffeeStudio LLC",
   "license": "New BSD",
   "repository": {
     "type": "git",
-    "url": "git://github.com/sehmaschine/django-grappelli.git"
+    "url": "git@github.com:coffeestudio/django-coffelli.git"
   },
   "devDependencies": {
     "grunt": "^0.4.5",

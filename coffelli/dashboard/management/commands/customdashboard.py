@@ -19,7 +19,7 @@ class Command(BaseCommand):
     def handle(self, file=None, **options):
         context = {}
         context['project'] = os.path.basename(os.getcwd())
-        tpl = ['dashboard/dashboard.txt', 'grappelli/dashboard/dashboard.txt']
+        tpl = ['dashboard/dashboard.txt', 'coffelli/dashboard/dashboard.txt']
         dst = file is not None and file or DEFAULT_FILE
         if os.path.exists(dst):
             raise CommandError('file "%s" already exists' % dst)

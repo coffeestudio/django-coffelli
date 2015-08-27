@@ -1,7 +1,7 @@
 # coding: utf-8
 
 """
-Module where grappelli dashboard classes are defined.
+Module where coffelli dashboard classes are defined.
 """
 
 # DJANGO IMPORTS
@@ -10,8 +10,8 @@ from django.core.urlresolvers import reverse
 from django import forms
 
 # GRAPPELLI IMPORTS
-from grappelli.dashboard import modules
-from grappelli.dashboard.utils import get_admin_site_name
+from coffelli.dashboard import modules
+from coffelli.dashboard.utils import get_admin_site_name
 
 
 class Dashboard(object):
@@ -94,7 +94,7 @@ class Dashboard(object):
     media = property(_media)
 
     title = _('Dashboard')
-    template = 'grappelli/dashboard/dashboard.html'
+    template = 'coffelli/dashboard/dashboard.html'
     columns = 2
     children = None
 

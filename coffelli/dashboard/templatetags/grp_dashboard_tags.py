@@ -13,10 +13,10 @@ from django import template
 from django.core.urlresolvers import reverse
 
 # GRAPPELLI IMPORTS
-from grappelli.dashboard.utils import get_admin_site_name, get_index_dashboard
+from coffelli.dashboard.utils import get_admin_site_name, get_index_dashboard
 
 register = template.Library()
-tag_func = register.inclusion_tag('grappelli/dashboard/dummy.html', takes_context=True)
+tag_func = register.inclusion_tag('coffelli/dashboard/dummy.html', takes_context=True)
 
 
 def grp_render_dashboard(context, location='index', dashboard=None):

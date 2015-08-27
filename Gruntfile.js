@@ -3,8 +3,8 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     concat: {
       dist: {
-        src: ['grappelli/static/grappelli/js/grappelli.js', 'grappelli/static/grappelli/js/jquery*.js'],
-        dest: 'grappelli/static/grappelli/js/grappelli.min.js'
+        src: ['coffelli/static/coffelli/js/coffelli.js', 'coffelli/static/coffelli/js/jquery*.js'],
+        dest: 'coffelli/static/coffelli/js/coffelli.min.js'
       }
     },
     jshint: {
@@ -12,24 +12,24 @@ module.exports = function(grunt) {
         "expr": true,
         "scripturl": true,
       },
-      beforeconcat: ['grappelli/static/grappelli/js/grappelli.js', 'grappelli/static/grappelli/js/jquery*.js'],
-      afterconcat: ['grappelli/static/grappelli/js/grappelli.min.js']
+      beforeconcat: ['coffelli/static/coffelli/js/coffelli.js', 'coffelli/static/coffelli/js/jquery*.js'],
+      afterconcat: ['coffelli/static/coffelli/js/coffelli.min.js']
     },
     uglify: {
       build: {
         files: {
-          'grappelli/static/grappelli/js/grappelli.min.js': ['grappelli/static/grappelli/js/grappelli.min.js']
+          'coffelli/static/coffelli/js/coffelli.min.js': ['coffelli/static/coffelli/js/coffelli.min.js']
         }
       }
     },
     compass: {
       dist: {
         options: {
-          config: 'grappelli/compass/config.rb',
-          sassDir: 'grappelli/compass/sass',
-          cssDir: 'grappelli/static/grappelli/stylesheets',
-          imagesDir: 'grappelli/static/grappelli/images',
-          javascriptsDir: 'grappelli/static/grappelli/javascripts',
+          config: 'coffelli/compass/config.rb',
+          sassDir: 'coffelli/compass/sass',
+          cssDir: 'coffelli/static/coffelli/stylesheets',
+          imagesDir: 'coffelli/static/coffelli/images',
+          javascriptsDir: 'coffelli/static/coffelli/javascripts',
           outputStyle: 'compressed',
           relativeAssets: true,
           noLineComments: true
@@ -48,15 +48,15 @@ module.exports = function(grunt) {
         showSource: true,
         ignore: ['E501']
       },
-      src: ['setup.py', 'grappelli/**/*.py'],
+      src: ['setup.py', 'coffelli/**/*.py'],
     },
     watch: {
       js: {
-          files: ['grappelli/static/grappelli/js/grappelli.js', 'grappelli/static/grappelli/js/jquery*.js'],
+          files: ['coffelli/static/coffelli/js/coffelli.js', 'coffelli/static/coffelli/js/jquery*.js'],
           tasks: ['jshint:beforeconcat', 'concat', 'jshint:afterconcat', 'uglify']
       },
       css: {
-          files: ['grappelli/compass/sass/**/*.scss'],
+          files: ['coffelli/compass/sass/**/*.scss'],
           tasks: ['compass']
       },
       sphinx: {

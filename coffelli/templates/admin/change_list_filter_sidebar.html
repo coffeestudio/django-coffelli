@@ -30,7 +30,7 @@
         <script type="text/javascript" charset="utf-8">
             (function($) {
                 $(document).ready(function() {
-                    grappelli.initDateAndTimePicker();
+                    coffelli.initDateAndTimePicker();
                     var prefix = "form";
                     var related_lookup_fields_fk = {% get_related_lookup_fields_fk cl.model_admin %};
                     var related_lookup_fields_m2m = {% get_related_lookup_fields_m2m cl.model_admin %};
@@ -133,8 +133,8 @@
     <script type="text/javascript" charset="utf-8">
         (function($) {
             $(document).ready(function() {
-                grappelli.initSearchbar();
-                grappelli.initFilter();
+                coffelli.initSearchbar();
+                coffelli.initFilter();
             });
         })(grp.jQuery);
     </script>

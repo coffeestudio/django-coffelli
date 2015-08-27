@@ -1,7 +1,7 @@
 # coding: utf-8
 
 """
-Module where grappelli dashboard modules classes are defined.
+Module where coffelli dashboard modules classes are defined.
 """
 
 # DJANGO IMPORTS
@@ -11,7 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.apps import apps as django_apps
 
 # GRAPPELLI IMPORTS
-from grappelli.dashboard.utils import AppListElementMixin
+from coffelli.dashboard.utils import AppListElementMixin
 
 
 class DashboardModule(object):
@@ -50,10 +50,10 @@ class DashboardModule(object):
 
     ``template``
         The template to use to render the module.
-        Default value: 'grappelli/dashboard/module.html'.
+        Default value: 'coffelli/dashboard/module.html'.
     """
 
-    template = 'grappelli/dashboard/module.html'
+    template = 'coffelli/dashboard/module.html'
     collapsible = True
     column = None
     show_title = True
@@ -77,7 +77,7 @@ class DashboardModule(object):
 
     def init_with_context(self, context):
         """
-        Like for the :class:`~grappelli.dashboard.Dashboard` class, dashboard
+        Like for the :class:`~coffelli.dashboard.Dashboard` class, dashboard
         modules have a ``init_with_context`` method that is called with a
         ``django.template.RequestContext`` instance as unique argument.
 
@@ -85,7 +85,7 @@ class DashboardModule(object):
         example, let's build a "history" dashboard module, that will list the
         last ten visited pages::
 
-            from grappelli.dashboard import modules
+            from coffelli.dashboard import modules
 
             class HistoryDashboardModule(modules.LinkList):
                 title = 'History'
@@ -135,7 +135,7 @@ class Group(DashboardModule):
 
     Here's an example of modules group::
 
-        from grappelli.dashboard import modules, Dashboard
+        from coffelli.dashboard import modules, Dashboard
 
         class MyDashboard(Dashboard):
             def __init__(self, **kwargs):
@@ -156,7 +156,7 @@ class Group(DashboardModule):
 
     """
 
-    template = 'grappelli/dashboard/modules/group.html'
+    template = 'coffelli/dashboard/modules/group.html'
 
     def init_with_context(self, context):
         if self._initialized:
@@ -185,7 +185,7 @@ class LinkList(DashboardModule):
     """
 
     title = _('Links')
-    template = 'grappelli/dashboard/modules/link_list.html'
+    template = 'coffelli/dashboard/modules/link_list.html'
 
     def init_with_context(self, context):
         if self._initialized:
@@ -211,7 +211,7 @@ class AppList(DashboardModule, AppListElementMixin):
     """
 
     title = _('Applications')
-    template = 'grappelli/dashboard/modules/app_list.html'
+    template = 'coffelli/dashboard/modules/app_list.html'
     models = None
     exclude = None
 
@@ -256,7 +256,7 @@ class ModelList(DashboardModule, AppListElementMixin):
     Module that lists a set of models.
     """
 
-    template = 'grappelli/dashboard/modules/model_list.html'
+    template = 'coffelli/dashboard/modules/model_list.html'
     models = None
     exclude = None
 
@@ -288,7 +288,7 @@ class RecentActions(DashboardModule):
     """
 
     title = _('Recent Actions')
-    template = 'grappelli/dashboard/modules/recent_actions.html'
+    template = 'coffelli/dashboard/modules/recent_actions.html'
     limit = 10
     include_list = None
     exclude_list = None
@@ -348,7 +348,7 @@ class Feed(DashboardModule):
     """
 
     title = _('RSS Feed')
-    template = 'grappelli/dashboard/modules/feed.html'
+    template = 'coffelli/dashboard/modules/feed.html'
     feed_url = None
     limit = None
 
