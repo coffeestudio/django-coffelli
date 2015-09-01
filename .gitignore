@@ -1,4 +1,8 @@
 *.pyc
+.idea
+build
+*.iml
+*.egg-info
 docs/_build/
 docs/_themes/
 .DS_Store

@@ -8,7 +8,7 @@ def read(fname):
 setup(
     name='django-coffelli',
     version='0.0.1',
-    description='CoffeeStudio Django admin interface.',
+    description='CoffeeStudio Django admin interface',
     long_description=read('README.rst'),
     author='CoffeeStudio LLC',
     license='BSD',
