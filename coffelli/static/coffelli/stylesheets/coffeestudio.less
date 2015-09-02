@@ -1,0 +1,32 @@
+#grp-content {
+  position: static;
+}
+
+main {
+  position: relative;
+  top: 80px;
+  display: flex;
+  flex-direction: row;
+  > aside.sitemap {
+    &.grp-module {
+      min-width:0 !important;
+    }
+    min-width: 20em;
+    max-width: 30em;
+    width: 25em;
+    margin-left: 20px;
+    ul {
+      list-style: none;
+      margin-left: 1em;
+      li a {
+        margin-left: 1em;
+      }
+    }
+    > ul {
+      margin-top: 1em;
+
+    }
+  }
+  > .content {
+  }
+}

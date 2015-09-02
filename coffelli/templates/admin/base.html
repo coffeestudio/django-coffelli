@@ -1,4 +1,4 @@
-{% load admin_static %}{% load i18n grp_tags %}
+{% load admin_static %}{% load i18n grp_tags coffee_tags %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
 <head>
@@ -15,6 +15,7 @@
         {% else %}
             <link href="{% static "coffelli/stylesheets/mueller/grid/output.css" %}" rel="stylesheet" type="text/css" media="screen" />
         {% endif %}
+        <link href="{% static "coffelli/stylesheets/coffeestudio.css" %}" rel="stylesheet" type="text/css" />
     {% endblock %}
     <!-- EXTRASTYLES -->
     {% block extrastyle %}{% endblock %}
@@ -139,36 +140,41 @@
         {% endblock %}
 
         <!-- CONTENT -->
-        <article id="grp-content" class="{% block content-class %}{% endblock %}">
+        <main>
+            {% render_sitemap %}
+            <section class="content">
+            <article id="grp-content" class="{% block content-class %}{% endblock %}">
 
-            <!-- MESSAGES -->
-            {% block messages %}
-                {% if messages %}
-                    <ul class="grp-messagelist">
-                        <!-- NOTE: no message|capfirst by purpose, because it does not work in some languages -->
-                        {% for message in messages %}
-                            <li{% if message.tags %} class="grp-{{ message.tags }}"{% endif %}>{{ message }}</li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            {% endblock %}
-
-            <!-- CONTENT TITLE -->
-            <header id="grp-content-title">
-                {% block pretitle %}{% endblock %}
-                {% block content_title %}{% if title %}<h1>{{ title }}</h1>{% endif %}{% endblock %}
-                {% block object-tools %}{% endblock %}
-            </header>
-
-            <!-- CONTENT-CONTAINER -->
-            <div id="grp-content-container">
-                {% block content %}
-                    {{ content }}
-                    {% block filters %}{% endblock %}
+                <!-- MESSAGES -->
+                {% block messages %}
+                    {% if messages %}
+                        <ul class="grp-messagelist">
+                            <!-- NOTE: no message|capfirst by purpose, because it does not work in some languages -->
+                            {% for message in messages %}
+                                <li{% if message.tags %} class="grp-{{ message.tags }}"{% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
                 {% endblock %}
-            </div>
 
-        </article>
+                <!-- CONTENT TITLE -->
+                <header id="grp-content-title">
+                    {% block pretitle %}{% endblock %}
+                    {% block content_title %}{% if title %}<h1>{{ title }}</h1>{% endif %}{% endblock %}
+                    {% block object-tools %}{% endblock %}
+                </header>
+
+                <!-- CONTENT-CONTAINER -->
+                <div id="grp-content-container">
+                    {% block content %}
+                        {{ content }}
+                        {% block filters %}{% endblock %}
+                    {% endblock %}
+                </div>
+
+            </article>
+            </section>
+        </main>
 
         <!-- FOOTER -->
         {% block footer %}{% endblock %}

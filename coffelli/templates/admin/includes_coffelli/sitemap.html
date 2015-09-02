@@ -1,0 +1,14 @@
+{% load coffee_tags %}
+
+{% if sitemap %}
+<aside class="sitemap grp-module">
+    <h2>Карта сайта</h2>
+    {% traverse_mptt sitemap %}
+        <ul>
+            {% with_item item %}
+                <li>{{ item.title }}<a class="fa fa-gear" href="#"></a>{% descend %}</li>
+            {% end_with_item %}
+        </ul>
+    {% end_traverse_mptt %}
+</aside>
+{% endif %}
