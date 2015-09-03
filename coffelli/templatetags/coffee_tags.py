@@ -4,22 +4,33 @@ from importlib import import_module
 from django.template import TemplateSyntaxError
 from django import template
 
-#FIXME TMP TODO: Make sidebar extension for ModelAdmin
-SITEMAP_MODEL = 'sitemap.models.Section'
-
 register = template.Library()
 
 # CoffeeStudio Admin Tags
 @register.inclusion_tag("admin/includes_coffelli/sitemap.html")
-def render_sitemap():
-    if not SITEMAP_MODEL:
+def sidebar():
+    sidebar_obj = get_sidebar_models()
+    if not sidebar_obj.sitemap:
         return {'sitemap': None}
-    module_name, class_name = SITEMAP_MODEL.rsplit('.', 1)
-    module = import_module(module_name)
-    instance = getattr(module, class_name)
-    nodeset = instance.objects.all().order_by('level')
-    # tree = build_tree(nodeset)
-    return {'sitemap': nodeset}
+    node_set = sidebar_obj.sitemap.objects.all().order_by('level')
+    return {'sitemap': node_set}
+
+def get_sidebar_models():
+    from django.contrib.admin.sites import site
+    from coffelli import SidebarAdminMixin
+    sbar = Sidebar
+    for model, model_admin in site._registry.items():
+        if not isinstance(model_admin, SidebarAdminMixin):
+            continue
+        if model_admin.sitemap:
+            sbar.sitemap = model
+        else:
+            sbar.models.append(model)
+    return sbar
+
+class Sidebar(object):
+    sitemap = None
+    models = []
 
 class TraverseNode(template.Node):
     start_tag = 'traverse_mptt'
