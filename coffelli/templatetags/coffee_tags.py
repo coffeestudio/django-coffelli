@@ -3,10 +3,18 @@
 from importlib import import_module
 from django.template import TemplateSyntaxError
 from django import template
+from django.core.urlresolvers import reverse
 
 register = template.Library()
 
-# CoffeeStudio Admin Tags
+@register.simple_tag()
+def admin_url(item):
+    return reverse("admin:%s_%s_change" % (item._meta.app_label, item._meta.model_name), args=(item.id,))
+
+@register.simple_tag()
+def section_filter_url(model, section):
+    return reverse("admin:%s_%s_changelist" % (model._meta.app_label, model._meta.model_name))
+
 @register.inclusion_tag("admin/includes_coffelli/sitemap.html")
 def sidebar():
     sidebar_obj = get_sidebar_models()
@@ -29,6 +37,7 @@ def get_sidebar_models():
     return sbar
 
 class Sidebar(object):
+    focus_model = None
     sitemap = None
     models = []
 
@@ -81,13 +90,9 @@ class TraverseNode(template.Node):
             context[self.bind] = item
             return self.template[mode].render(context) if self.template[mode] else ''
 
-    class DescendNode:
+    class DescendNode(object):
         start_tag = 'descend'
         end_tag = None
-
-        def __init__(self):
-            pass
-
 
 @register.tag(name=TraverseNode.start_tag)
 def compile_traverse_mptt(parser, token):
@@ -103,10 +108,10 @@ def compile_traverse_mptt(parser, token):
     if len(args) < 1:
         raise TemplateSyntaxError("%s takes mptt result set parameter" % tag)
     context_var = template.Variable(args[0])
-    main_mode = 0
-    item_mode = 0
-    main_template = [None, None]
-    item_template = [None, None]
+    main_mode = 0  # main_template target
+    item_mode = 0  # item_template target
+    main_template = [None, None]  # before item / after item
+    item_template = [None, None]  # before descend / after descend
     item_bind = None
     while tag != TraverseNode.end_tag:
         nodes = parser.parse(states[state])
@@ -126,7 +131,7 @@ def compile_traverse_mptt(parser, token):
             state = 1
             if len(args) > 0:
                 item_bind = args[0]
-        elif state == 1:
+        elif state == 1:  # Scan for subtags inside main traverse tag
             if tag == TraverseNode.WithItemNode.end_tag:
                 state = 0
                 main_mode = 1

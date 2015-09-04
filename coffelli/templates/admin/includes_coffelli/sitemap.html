@@ -6,7 +6,13 @@
     {% traverse_mptt sitemap %}
         <ul>
             {% with_item item %}
-                <li>{{ item.title }}<a class="fa fa-gear" href="#"></a>{% descend %}</li>
+                <li>
+                    <a href="{% section_filter_url item item %}">{{ item.title }}</a>
+                    <ul class="grp-actions">
+                        <li class="grp-change-link"><a class="fa fa-gear" href="{% admin_url item %}">&nbsp;</a></li>
+                    </ul>
+                    {% descend %}
+                </li>
             {% end_with_item %}
         </ul>
     {% end_traverse_mptt %}
