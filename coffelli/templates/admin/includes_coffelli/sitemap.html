@@ -1,4 +1,4 @@
-{% load coffee_tags %}
+{% load coffee_tags admin_urls %}
 
 {% if sitemap %}
 <aside class="sitemap grp-module">
@@ -7,7 +7,7 @@
         <ul>
             {% with_item item %}
                 <li>
-                    <a href="{% section_filter_url item item %}">{{ item.title }}</a>
+                    <a href="{% section_filter_url focus item %}">{{ item.title }}</a>
                     <ul class="grp-actions">
                         <li class="grp-change-link"><a class="fa fa-gear" href="{% admin_url item %}">&nbsp;</a></li>
                     </ul>
@@ -18,3 +18,5 @@
     {% end_traverse_mptt %}
 </aside>
 {% endif %}
+
+{#{{ focus|admin_urlname:'changelist' }}#}

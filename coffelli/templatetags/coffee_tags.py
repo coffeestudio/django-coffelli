@@ -1,9 +1,13 @@
 # coding: utf-8
 
 from importlib import import_module
+from django.http import QueryDict
 from django.template import TemplateSyntaxError
 from django import template
 from django.core.urlresolvers import reverse
+from django.db.models.fields.related import ForeignKey
+from django.contrib.admin import ModelAdmin
+import inspect
 
 register = template.Library()
 
@@ -11,17 +15,39 @@ register = template.Library()
 def admin_url(item):
     return reverse("admin:%s_%s_change" % (item._meta.app_label, item._meta.model_name), args=(item.id,))
 
+memo_section_relation = {}
+
 @register.simple_tag()
 def section_filter_url(model, section):
-    return reverse("admin:%s_%s_changelist" % (model._meta.app_label, model._meta.model_name))
+    if not (hasattr(model, '_meta') and hasattr(section, '_meta')):
+        return ''
+    model_name = model._meta.model_name
+    ffield = None
+    if not model_name in memo_section_relation:
+        for f in model._meta.get_fields():
+            if not isinstance(f, ForeignKey):
+                continue
+            if not isinstance(section, f.rel.to):
+                continue
+            f_obj_name = f.name
+            f_id_name = f.get_path_info()[0].target_fields[0].name
+            ffield = lambda s: {"%s__%s__exact" % (f_obj_name, f_id_name): getattr(s, f_id_name)}
+            break
+        memo_section_relation[model_name] = ffield
+    else:
+        ffield = memo_section_relation[model_name]
+    base_url = reverse("admin:%s_%s_changelist" % (model._meta.app_label, model_name))
+    qd = QueryDict('', mutable=True)
+    qd.update(ffield(section))
+    return base_url + '?' + qd.urlencode()
 
 @register.inclusion_tag("admin/includes_coffelli/sitemap.html")
-def sidebar():
+def sidebar(focus):
     sidebar_obj = get_sidebar_models()
     if not sidebar_obj.sitemap:
         return {'sitemap': None}
     node_set = sidebar_obj.sitemap.objects.all().order_by('level')
-    return {'sitemap': node_set}
+    return {'sitemap': node_set, 'focus': focus}
 
 def get_sidebar_models():
     from django.contrib.admin.sites import site
